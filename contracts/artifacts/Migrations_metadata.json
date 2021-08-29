@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.4+commit.c7e474f2"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -60,7 +60,7 @@
 		"compilationTarget": {
 			"contracts/Migrations.sol": "Migrations"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -73,11 +73,11 @@
 	},
 	"sources": {
 		"contracts/Migrations.sol": {
-			"keccak256": "0x70cf7ad76347f1e37197351f671d6033be2f1d514fd6f018d495c85494b951f0",
+			"keccak256": "0x7eaedbb1a3e4e0f585d9063393872f88ded247ca3c3c3c8492ea18e7629a6411",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://27096293ae0ec55dd0562229d2b8050a95b348452d2e23f09909778a80a55b70",
-				"dweb:/ipfs/QmUUicCTuEZUPrXpma1CQ65oey85gwTrhw7UAsCiqANeca"
+				"bzz-raw://4a3eb571cee910095df65a06a1c1d3f89187c72a3c184ef87a7538d9aa39ad07",
+				"dweb:/ipfs/QmdqR3vrSSGR49qFGZr49Mb39z7dgD6tSzEDoaqtM31o61"
 			]
 		}
 	},
