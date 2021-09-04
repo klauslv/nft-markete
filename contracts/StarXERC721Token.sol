@@ -18,7 +18,7 @@ contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable{
     using Counters for Counters.Counter;
     
     //the curTokenId
-    Counters.Counter private curTokenId;
+    Counters.Counter private idCounts;
 
     //token URI prefix
     string private baseTokenURI;
@@ -26,7 +26,7 @@ contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable{
     //save token creators
     mapping(uint256 => address) creators;
     
-    constructor(string memory _name,string memory _sympol,string memory _baseTokenURI) ERC721(_name, _sympol){
+    constructor(string memory _name,string memory _symbol,string memory _baseTokenURI) ERC721(_name, _symbol){
         baseTokenURI = _baseTokenURI;
     }
     /**

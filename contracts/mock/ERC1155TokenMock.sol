@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.7;
 
-import "../StartXERC1155Token.sol";
+import "../StarXERC1155Token.sol";
 
-contract ERC1155TokenMock is StartXERC1155Token{
+contract ERC1155TokenMock is StarXERC1155Token{
     
     constructor() StartXERC1155Token("1155 cat","1155","https://testapi.dikameng.cn/nft?id="){}
     

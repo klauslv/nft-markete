@@ -18,7 +18,7 @@ contract StarXERC721TokenFactory is Ownable {
         address _owner,
         address _token,
         string name,
-        string sympol,
+        string symbol,
         string baseTokenURI
     );
 
@@ -31,14 +31,14 @@ contract StarXERC721TokenFactory is Ownable {
     /**
      * @dev user can get one StarX721 mintor for the method
      */
-    function createStarX(string memory _name,string memory _sympol,string memory _baseTokenURI) external returns(address _token){
-        StarXERC721Token token = new StarXERC721Token(_name,_sympol,_baseTokenURI);
+    function createStarX721(string memory _name,string memory _symbol,string memory _baseTokenURI) external returns(address _token){
+        StarXERC721Token token = new StarXERC721Token(_name,_symbol,_baseTokenURI);
 
         address starXToken = address(token);
         starXTokens[msg.sender].push(starXToken);
         allStarXTokens.push(starXToken);
 
-        emit StarXTokenCreated(msg.sender, starXToken, _name, _sympol, _baseTokenURI);
+        emit StarXTokenCreated(msg.sender, starXToken, _name, _symbol, _baseTokenURI);
         return starXToken;
     }
 
