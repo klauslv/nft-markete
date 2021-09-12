@@ -36,8 +36,11 @@ contract StarXERC1155TokenFactory is Ownable{
      * @dev create the 1155 tokens contact
      */
     function createStarX1155(string memory _name,string memory _symbol,string memory _baseTokenUri) external returns(address){
-        StarXERC1155Token token = new StarXERC1155Token(_name,_symbol,_baseTokenUri);
+        StarXERC1155Token token = new StarXERC1155Token(_name,_symbol,_baseTokenUri,msg.sender);
         address starX1155 = address(token);
+        
+        starX1155Tokens[msg.sender].push(starX1155);
+        all1155Tokens.push(starX1155);
         emit StarX1155TokenCreated(msg.sender,starX1155,_name,_symbol,_baseTokenUri);
         return starX1155;
     }

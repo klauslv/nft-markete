@@ -9,16 +9,18 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
+import "./lib/utils/StringUtil.sol";
 
 /**
  * ERC721 Token 
  */
 contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable{
-    using Strings for uint256;
+    using SafeMath for uint256;
+    using Strings for string;
     using Counters for Counters.Counter;
     
     //the curTokenId
-    Counters.Counter private idCounts;
+    Counters.Counter private curTokenId;
 
     //token URI prefix
     string private baseTokenURI;
@@ -26,9 +28,15 @@ contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable{
     //save token creators
     mapping(uint256 => address) creators;
     
-    constructor(string memory _name,string memory _symbol,string memory _baseTokenURI) ERC721(_name, _symbol){
+/**
+ * @dev Initializes the contract, 
+ * @param _owner is factory address,and it is user account address 
+ */
+    constructor(string memory _name,string memory _symbol,string memory _baseTokenURI,address _owner) ERC721(_name, _symbol){
         baseTokenURI = _baseTokenURI;
+        transferOwnership(_owner);
     }
+    
     /**
      * @dev set one new base URI only by owner
      * @param _newTokenURI a new base URI
@@ -52,7 +60,7 @@ contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable{
      * @dev user can mint one 721 Token for _toAddress
      * @param _toAddress owner of the ERC721 Token 
      */
-    function mintTo(address _toAddress) public {
+    function mintTo(address _toAddress) public whenNotPaused{
         //id increment every time a mint
         curTokenId.increment();
         _safeMint(_toAddress,curTokenId.current());
@@ -65,18 +73,13 @@ contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable{
         return curTokenId.current();
     }
     
-    /**
-     * @dev returns current token URI for the contract
-     */
-    function getCurTokenURI() public view returns(string memory){
-        return tokenURI(curTokenId.current());
-    }
-    
+
     /**
      * @dev get token URI by _tokenId
      */
     function tokenURI(uint256 _tokenId) override public view returns(string memory){
-     return string(abi.encodePacked(baseTokenURI, _tokenId.toString()));
+        require(exists(_tokenId),"not exist for the tokenId");
+     return string(abi.encodePacked(baseTokenURI,StringUtil.toString(_tokenId)));
   }
 
   /**

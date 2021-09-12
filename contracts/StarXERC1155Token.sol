@@ -8,9 +8,11 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
+import "./lib/utils/StringUtil.sol";
 
 contract StarXERC1155Token is ERC1155,Ownable,Pausable{
     using SafeMath for uint256;
+    using Strings for string;
     using Counters for Counters.Counter;
 
     Counters.Counter private curTokenId;
@@ -27,10 +29,11 @@ contract StarXERC1155Token is ERC1155,Ownable,Pausable{
     //tokenId => totalSupply
     mapping(uint256 => uint256) public _totalSupply;
     
-    constructor(string memory _name,string memory _symbol, string memory _baseTokenUri)ERC1155(_baseTokenUri){
+    constructor(string memory _name,string memory _symbol, string memory _baseTokenUri,address _newOwner)ERC1155(_baseTokenUri){
         name = _name;
         symbol = _symbol;
         baseTokenUri = _baseTokenUri;
+        transferOwnership(_newOwner);
     }
 
     /**
@@ -40,7 +43,21 @@ contract StarXERC1155Token is ERC1155,Ownable,Pausable{
         baseTokenUri = _newUri;
         _setURI(_newUri);
     }
+     /**
+     * @dev returns the curren token Id for the contract 
+     */
+    function getCurTokenId() public view returns(uint256){
+        return curTokenId.current();
+    }
     
+    
+    /**
+     * @dev get token URI by _tokenId
+     */
+    function uri(uint256 _tokenId)  public view override returns(string memory){
+        require(exists(_tokenId),"not exist for the tokenId");
+        return StringUtil.strConcat(baseTokenUri, StringUtil.uint2str(_tokenId));
+    }
 
     /**
      * @dev create `amount` tokens for token Id,and assign to *`_toAddress`

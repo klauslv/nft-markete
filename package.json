@@ -19,9 +19,9 @@
         "url": "https://github.com/klauslv/nft-markete/issues"
     },
     "dependencies": {
-        "@openzeppelin/contracts": "^4.1.0",
+        "@openzeppelin/contracts": "^4.3.0",
         "@truffle/contract": "^4.3.23",
-        "@truffle/hdwallet-provider": "^1.2.6",
+        "@truffle/hdwallet-provider": "^1.5.0",
         "bignumber.js": "^9.0.1",
         "chai": "^4.3.4",
         "chai-as-promised": "^7.1.1",

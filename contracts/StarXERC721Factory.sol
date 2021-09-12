@@ -32,7 +32,7 @@ contract StarXERC721TokenFactory is Ownable {
      * @dev user can get one StarX721 mintor for the method
      */
     function createStarX721(string memory _name,string memory _symbol,string memory _baseTokenURI) external returns(address _token){
-        StarXERC721Token token = new StarXERC721Token(_name,_symbol,_baseTokenURI);
+        StarXERC721Token token = new StarXERC721Token(_name,_symbol,_baseTokenURI,msg.sender);
 
         address starXToken = address(token);
         starXTokens[msg.sender].push(starXToken);
