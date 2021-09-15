@@ -6,7 +6,7 @@ const { inTransaction } = require("@openzeppelin/test-helpers/src/expectEvent");
 const { assertion } = require("@openzeppelin/test-helpers/src/expectRevert");
 const { assert, use } = require("chai");
 
-require('chai').use(require('chai-as-promised')).should
+require('chai').use(require('chai-as-promised')).should()
 
 contract('StarXERC721Token', (accounts) => {
 
@@ -22,20 +22,20 @@ contract('StarXERC721Token', (accounts) => {
             //create 721 Contract
         const result = await startX721Factory.createStarX721("test 721token", "StarX", baseURI, { from: owner })
             //get address of the StarX721Token
-        let starX721Addr = result.logs[2].args.starXToken
+        let starX721Addr = result.logs[2].args.token
         console.log('StarX721Token is deployed to %s', starX721Addr)
             //get the 721token contract
         starX721Token = await StarX721Token.at(starX721Addr)
 
         //mint
-        await starX721Token.mint(owner, { from: owner })
-        await starX721Token.mint(user, { from: user })
-        await starX721Token.mint(buyer, { from: buyer })
+        await starX721Token.mintTo(owner, { from: owner })
+        await starX721Token.mintTo(user, { from: user })
+        await starX721Token.mintTo(buyer, { from: buyer })
     })
 
     describe('Test StarX721factory', async() => {
         it('1st,Get the owner', async() => {
-            const owner = await startX721Factory.owner
+            const owner = await startX721Factory.owner()
             assert.equal(owner, accounts[0])
         })
         let firstToken

@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "./lib/utils/StringUtil.sol";
 
-contract StarXERC1155Token is ERC1155,Ownable,Pausable{
+contract StarXERC1155Token is ERC1155,Ownable,Pausable {
     using SafeMath for uint256;
     using Strings for string;
     using Counters for Counters.Counter;

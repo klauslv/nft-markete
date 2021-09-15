@@ -14,7 +14,7 @@ import "./lib/utils/StringUtil.sol";
 /**
  * ERC721 Token 
  */
-contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable{
+contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable {
     using SafeMath for uint256;
     using Strings for string;
     using Counters for Counters.Counter;

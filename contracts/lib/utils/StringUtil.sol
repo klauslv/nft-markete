@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.7;
-library StringUtil{
+library StringUtil {
 
        function strConcat(
         string memory _a,

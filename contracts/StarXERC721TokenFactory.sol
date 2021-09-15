@@ -15,8 +15,8 @@ contract StarXERC721TokenFactory is Ownable {
      * StarX token create event
      */
     event StarXTokenCreated(
-        address _owner,
-        address _token,
+        address owner,
+        address token,
         string name,
         string symbol,
         string baseTokenURI
