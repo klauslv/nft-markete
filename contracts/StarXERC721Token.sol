@@ -79,7 +79,7 @@ contract StarXERC721Token is ERC721Enumerable,Ownable,Pausable{
      */
     function tokenURI(uint256 _tokenId) override public view returns(string memory){
         require(exists(_tokenId),"not exist for the tokenId");
-     return string(abi.encodePacked(baseTokenURI,StringUtil.toString(_tokenId)));
+     return string(abi.encodePacked(baseTokenURI,Strings.toString(_tokenId)));
   }
 
   /**

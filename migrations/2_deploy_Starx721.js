@@ -1,4 +1,4 @@
-const StarX721TokenFactory = artifacts.require("StarX721TokenFactory");
+const StarX721TokenFactory = artifacts.require("StarXERC721TokenFactory");
 module.exports = function(deployer){
     deployer.deploy(StarX721TokenFactory);
 }

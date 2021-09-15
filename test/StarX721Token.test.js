@@ -1,10 +1,10 @@
+const StarX721Token = artifacts.require("StarXERC721Token");
+const StarX721TokenFactory = artifacts.require("StarXERC721TokenFactory");
 require("dotenv").config;
 const { time, expectRevert } = require('@openzeppelin/test-helpers');
 const { inTransaction } = require("@openzeppelin/test-helpers/src/expectEvent");
 const { assertion } = require("@openzeppelin/test-helpers/src/expectRevert");
 const { assert, use } = require("chai");
-const StarXERC721Token = artifacts.require("StarXERC721Token");
-const StarXERC721TokenFactory = artifacts.require("StarXERC721TokenFactory");
 
 require('chai').use(require('chai-as-promised')).should
 
@@ -17,7 +17,7 @@ contract('StarXERC721Token', (accounts) => {
     const baseURI = "https://testapi.dikameng.cn/nft?id="
     before(async() => {
         //deploy 721factory
-        startX721Factory = await StarXERC721TokenFactory.new()
+        startX721Factory = await StarX721TokenFactory.new()
         console.log('StarX721TokenFactory is deployed to %s', startX721Factory.address)
             //create 721 Contract
         const result = await startX721Factory.createStarX721("test 721token", "StarX", baseURI, { from: owner })

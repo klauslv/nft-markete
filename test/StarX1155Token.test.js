@@ -1,11 +1,12 @@
+const StarX1155Token = artifacts.require("StarXERC1155Token");
+const StarX1155TokenFactory = artifacts.require("StarXERC1155TokenFactory");
+const { assert, use } = require("chai");
 require("dotenv").config;
 const { BN, constants, expectRevert } = require('@openzeppelin/test-helpers');
 const { inTransaction } = require("@openzeppelin/test-helpers/src/expectEvent");
 const { assertion } = require("@openzeppelin/test-helpers/src/expectRevert");
 const { default: BigNumber } = require("bignumber.js");
-const { assert, use } = require("chai");
-const StarXERC1155Token = artifacts.require("StarXERC1155Token");
-const StarXERC1155TokenFactory = artifacts.require("StarXERC1155TokenFactory");
+
 
 require('chai').use(require('chai-as-promised')).should
 
@@ -26,7 +27,7 @@ contract('StarXERC1155Token', (accounts) => {
         let starX1155Addr = result.logs[2].args.starXToken
         console.log('StarX1155Token is deployed to %s', starX1155Addr)
             //get the 1155token contract
-        starX1155Token = await starX1155Token.at(starX1155Addr)
+        starX1155Token = await StarX1155Token.at(starX1155Addr)
 
         //mint the 1155 token
         await starX1155Token.mint(owner, 10, { from: owner })
