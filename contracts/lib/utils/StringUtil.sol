@@ -2,7 +2,6 @@
 
 pragma solidity ^0.8.7;
 library StringUtil {
-
        function strConcat(
         string memory _a,
         string memory _b,

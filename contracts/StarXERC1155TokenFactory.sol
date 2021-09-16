@@ -14,6 +14,7 @@ import "./StarXERC1155Token.sol";
 contract StarXERC1155TokenFactory is Ownable{
     using Strings for string;
     using SafeMath for uint256;
+    
 
     /**
      * @dev Emitted when create one 1155 contract

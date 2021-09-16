@@ -74,7 +74,7 @@ contract StarXERC1155Token is ERC1155,Ownable,Pausable {
     /**
      * @dev mint tokens for each amount in `_amounts`
      */
-    function mintBatch(address _toAddress, uint256[] memory _amounts, bytes memory _data)public whenNotPaused{
+    function mintBatch(address _toAddress, uint256[] memory _amounts, bytes memory _data) public whenNotPaused{
         require(_amounts.length>0,"amoutns must be more than 0");
         require(_toAddress != address(0),"_toAddress can not the zero");
         uint256[] memory tokenIds = new uint256[](_amounts.length);

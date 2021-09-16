@@ -20,7 +20,7 @@ contract('StarXERC721Token', (accounts) => {
         startX721Factory = await StarX721TokenFactory.new()
         console.log('StarX721TokenFactory is deployed to %s', startX721Factory.address)
             //create 721 Contract
-        const result = await startX721Factory.createStarX721("test 721token", "StarX", baseURI, { from: owner })
+        const result = await startX721Factory.createStarX721('test 721token', 'StarX', baseURI, { from: owner })
             //get address of the StarX721Token
         let starX721Addr = result.logs[2].args.token
         console.log('StarX721Token is deployed to %s', starX721Addr)
@@ -51,10 +51,10 @@ contract('StarXERC721Token', (accounts) => {
     })
     describe('Test StarX721 Token', async() => {
         it('1st test,test the info of the StarX721 token', async() => {
-            assert.equal(await starXToken.name(), "test 721token")
-            assert.equal(await starXToken.symbol, "StarX")
-            let tokenId = starXToken.getCurTokenId()
-            assert.equal(await starXToken.tokenURI(tokenId), baseUR + tokenId)
+            assert.equal(await starX721Token.name(), 'test 721token')
+            assert.equal(await starX721Token.symbol(), 'StarX')
+            let tokenId = await starX721Token.getCurTokenId()
+            assert.equal(await starX721Token.tokenURI(tokenId), baseURI + tokenId.toString())
         })
 
         it('2st test, get the totalSupply', async() => {
@@ -63,52 +63,48 @@ contract('StarXERC721Token', (accounts) => {
         })
 
         it('3st test, approve other', async() => {
-            await starXToken.approve(user, 1, { from: owner })
-            const approved = await starXToken.getApproved(1)
+            await starX721Token.approve(user, 1, { from: owner })
+            const approved = await starX721Token.getApproved(1)
             assert.equal(user, approved)
         })
 
         it('4st test, transfer token to other', async() => {
-            const balanceOfOwner = await starXToken.balanceOf(owner)
-            const balanceOfUser = await starXToken.balanceOf(user)
-            await starXToken.safeTransferFrom(owner, user, 1, { from: owner })
-            const ownerBalance = await starXToken.balanceOf(owner)
-            const userBalance = await starXToken.balanceOf(user)
+            const balanceOfOwner = await starX721Token.balanceOf(owner)
+            const balanceOfUser = await starX721Token.balanceOf(user)
+            await starX721Token.safeTransferFrom(owner, user, 1, { from: owner })
+            const ownerBalance = await starX721Token.balanceOf(owner)
+            const userBalance = await starX721Token.balanceOf(user)
             assert.equal(balanceOfOwner.sub(ownerBalance), '1')
             assert.equal(userBalance.sub(balanceOfUser), '1')
         })
 
         it('5st test,the contract can  pause by owner', async() => {
-            assert.isFalse(await starXToken.paused())
-            await expectRevert(starX721Token.pause({ from: user }), "caller is not the owner")
+            assert.isFalse(await starX721Token.paused())
+            await expectRevert(starX721Token.pause({ from: user }), 'caller is not the owner')
             await starX721Token.pause({ from: owner })
             assert.isTrue(await starX721Token.paused())
+            await starX721Token.unPause({ from: owner })
         })
 
-        it('6st test, the contract can not mint when paused', async() => {
-            await expectRevert(tarX721Token.mint(owner, { from: owner }), "contact is paused by owner,can not mint")
-            await starX721Token.unpause({ from: owner })
-        })
-
-        it('7st test,set new baseURI', async() => {
+        it('6st test,set new baseURI', async() => {
             const newBaseURI = 'https://testapi.ipfs.cn/nft?id='
             await starX721Token.setBaseTokenURI(newBaseURI, { from: owner })
-            let curTokenId = starX721Token.getCurTokenId()
-            assert.equal(await starX721Token.tokenURI(curTokenId), baseUR + tokenId)
+            let curTokenId = await starX721Token.getCurTokenId()
+            assert.equal(await starX721Token.tokenURI(curTokenId), newBaseURI + curTokenId.toString())
         })
 
-        it('8st test,get token owner of the tokenId', async() => {
+        it('7st test,get token owner of the tokenId', async() => {
+            await starX721Token.mintTo(user, { from: user })
             const tokenId = await starX721Token.getCurTokenId()
-            await starX721Token.mint(user, { from: user })
-            const tokenOwner = await starX721Token.ownerOf(tokenId);
+            const tokenOwner = await starX721Token.ownerOf(tokenId)
             assert.equal(tokenOwner, user)
         })
 
-        it('9st test, get the balance of the tokenId', async() => {
+        it('8st test, get the balance of the tokenId', async() => {
             const balanceBefore = await starX721Token.balanceOf(user)
-            await starX721Token.mint(user, { from: user })
+            await starX721Token.mintTo(user, { from: user })
             const balanceAfter = await starX721Token.balanceOf(user)
-            assert.equal(balanceAfter.sub(balanceBefore), "1")
+            assert.equal(balanceAfter.sub(balanceBefore), '1')
         })
     })
 })
